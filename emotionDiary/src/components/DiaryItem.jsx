@@ -7,12 +7,13 @@ const DiaryItem = ({ id, emotionId, createdDate, content }) => {
   const nav = useNavigate();
 
   const goDiaryPage = () => {
-    nav(`/diary?id=${id.id}`);
+    nav(`/diary?id=${id}`);
   };
 
   const goEditPage = () => {
-    nav(`/edit/${id}`);
+    nav(`/edit?id=${id}`);
   };
+
   return (
     <div className="DiaryItem">
       <div
@@ -26,6 +27,9 @@ const DiaryItem = ({ id, emotionId, createdDate, content }) => {
           {new Date(createdDate).toLocaleDateString()}
         </div>
         <div className="contentInfo">{content}</div>
+      </div>
+      <div className="button_section" onClick={goEditPage}>
+        <Button text={'수정'} />
       </div>
     </div>
   );

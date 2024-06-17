@@ -12,6 +12,10 @@ const DiaryList = ({ data }) => {
     setSortType(e.target.value);
   };
 
+  const goNewPage = () => {
+    nav(`/new`);
+  };
+
   const getSortedData = () => {
     return data.toSorted((a, b) => {
       if (sortType === 'oldest') {
@@ -27,11 +31,11 @@ const DiaryList = ({ data }) => {
   return (
     <div className="DiaryList">
       <div className="menu_bar">
-        <select value={sortType}>
+        <select value={sortType} onChange={onChangeSortType}>
           <option value={'latest'}>최신순</option>
           <option value={'oldest'}>오래된 순</option>
         </select>
-        <Button text={'새 일기 쓰기'} type={'POSITIVE'} />
+        <Button text={'새 일기 쓰기'} type={'POSITIVE'} onClick={goNewPage} />
       </div>
       <div className="list_wrapper">
         {sortedData.map((item) => {

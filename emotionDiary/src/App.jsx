@@ -12,7 +12,7 @@ import Edit from './pages/Edit';
 const mockData = [
   {
     id: 1,
-    createdDate: new Date('2024-06-18').getTime(),
+    createdDate: new Date('2024-06-20').getTime(),
     emotionId: 1,
     content: '1번 일기 내용',
   },
@@ -24,7 +24,7 @@ const mockData = [
   },
   {
     id: 3,
-    createdDate: new Date('2024-06-07').getTime(),
+    createdDate: new Date('2024-05-07').getTime(),
     emotionId: 3,
     content: '3번 일기 내용',
   },
@@ -82,6 +82,7 @@ function App() {
       id,
     });
   };
+
   return (
     <>
       <DiaryStateContext.Provider value={data}>

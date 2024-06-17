@@ -53,3 +53,10 @@
 .DiaryItem .info_section .contentInfo {
   font-size: 18px;
 }
+
+.DiaryItem .button_section {
+  min-width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
