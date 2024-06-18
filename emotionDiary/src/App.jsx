@@ -39,7 +39,7 @@ function reducer(state, action) {
         String(item.id) === String(action.data.id) ? action.data : item
       );
     case 'DELETE':
-      return state.filter((item) => item.id !== action.id);
+      return state.filter((item) => String(item.id) !== String(action.id));
     default:
       return state;
   }
@@ -50,7 +50,7 @@ export const DiaryDispatchContext = createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, mockData);
-  const idRef = useRef(4);
+  const idRef = useRef(6);
 
   const onCreate = (createdDate, emotionId, content) => {
     dispatch({

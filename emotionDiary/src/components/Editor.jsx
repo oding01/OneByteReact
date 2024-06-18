@@ -2,7 +2,7 @@ import Button from './Button';
 import './Editor.css';
 import EmotionItem from './EmotionItem';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const emotionList = [
   {
@@ -27,7 +27,22 @@ const emotionList = [
   },
 ];
 
-const Editor = ({ onSubmit }) => {
+const getStringDate = (targetDate) => {
+  let year = targetDate.getFullYear();
+  let month = targetDate.getMonth() + 1;
+  let date = targetDate.getDate();
+
+  if (month < 10) {
+    month = `0${month}`;
+  }
+  if (date < 10) {
+    date = `0${date}`;
+  }
+
+  return `${year}-${month}-${date}`;
+};
+
+const Editor = ({ onSubmit, diaryItem }) => {
   const nav = useNavigate();
 
   const [input, setInput] = useState({
@@ -40,24 +55,26 @@ const Editor = ({ onSubmit }) => {
     onSubmit(input);
   };
 
-  const getDateString = (targetDate) => {
-    let year = targetDate.getFullYear();
-    let month = targetDate.getMonth() + 1;
-    let date = targetDate.getDate();
-
-    if (month < 10) {
-      month = `0${month}`;
+  useEffect(() => {
+    if (diaryItem) {
+      setInput({
+        ...diaryItem,
+        createdDate: new Date(Number(diaryItem.createdDate)),
+      });
     }
-    if (date < 10) {
-      date = `0${date}`;
-    }
-    return `${year}-${month}-${date}`;
-  };
+  }, [diaryItem]);
 
   const onChangeInput = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    if (name === 'createdDate') {
+      value = new Date(value);
+    }
+
     setInput({
       ...input,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -69,7 +86,7 @@ const Editor = ({ onSubmit }) => {
           type="date"
           name="createdDate"
           onChange={onChangeInput}
-          value={getDateString(input.createdDate)}
+          value={getStringDate(input.createdDate)}
         />
       </section>
       <section className="emotion_section">

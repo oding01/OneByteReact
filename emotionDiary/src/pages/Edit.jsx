@@ -1,6 +1,7 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { DiaryDispatchContext } from '../App';
+import { useContext, useEffect, useState } from 'react';
+import { DiaryDispatchContext, DiaryStateContext } from '../App';
+import useDiary from './../hooks/useDiary';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import Editor from '../components/Editor';
@@ -10,7 +11,8 @@ const Edit = () => {
   const id = params.get('id');
 
   const nav = useNavigate();
-  const { onDelete } = useContext(DiaryDispatchContext);
+
+  const { onDelete, onUpdate } = useContext(DiaryDispatchContext);
 
   const onClickDelete = () => {
     let isConfirm = window.confirm(
@@ -21,6 +23,15 @@ const Edit = () => {
       nav('/', { replace: true });
     }
   };
+
+  const onClickSubmit = (input) => {
+    if (window.confirm('저장하시겠어요?')) {
+      onUpdate(id, input.createdDate.getTime(), input.emotionId, input.content);
+      nav('/', { replace: true });
+    }
+  };
+
+  const diaryItem = useDiary(id);
 
   return (
     <div>
@@ -45,7 +56,7 @@ const Edit = () => {
         />
       </div>
       <div>
-        <Editor />
+        <Editor diaryItem={diaryItem} onSubmit={onClickSubmit} />
       </div>
     </div>
   );

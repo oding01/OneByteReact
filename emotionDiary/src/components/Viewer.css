@@ -1,0 +1,42 @@
+.Viewer .emotion_section > img {
+  width: 50%;
+}
+
+.Viewer .emotion_section_1 {
+  background-color: rgb(100, 201, 100);
+  color: white;
+}
+
+.Viewer .emotion_section_2 {
+  background-color: rgb(157, 215, 114);
+  color: white;
+}
+
+.Viewer .emotion_section_3 {
+  background-color: rgb(253, 206, 23);
+  color: white;
+}
+
+.Viewer .emotion_section_4 {
+  background-color: rgb(253, 132, 70);
+  color: white;
+}
+
+.Viewer .emotion_section_5 {
+  background-color: rgb(253, 86, 95);
+  color: white;
+}
+
+.Viewer > section > textarea {
+  padding: 20px;
+  width: 100%;
+  min-height: 200px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.Viewer > section > textarea:focus,
+input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgb(157, 215, 114);
+}
