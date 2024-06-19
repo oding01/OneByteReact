@@ -46,12 +46,13 @@
 }
 
 .DiaryItem .info_section .createdDate {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 600;
+  margin-bottom: 5px;
 }
 
 .DiaryItem .info_section .contentInfo {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .DiaryItem .button_section {

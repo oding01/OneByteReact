@@ -2,30 +2,8 @@ import Button from './Button';
 import './Editor.css';
 import EmotionItem from './EmotionItem';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-
-const emotionList = [
-  {
-    emotionId: 1,
-    emotionName: '최고야!',
-  },
-  {
-    emotionId: 2,
-    emotionName: '좋아!',
-  },
-  {
-    emotionId: 3,
-    emotionName: '그냥 그래',
-  },
-  {
-    emotionId: 4,
-    emotionName: '별로야',
-  },
-  {
-    emotionId: 5,
-    emotionName: '완전 별로야',
-  },
-];
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { emotionList } from '../util/constants';
 
 const getStringDate = (targetDate) => {
   let year = targetDate.getFullYear();
@@ -78,6 +56,12 @@ const Editor = ({ onSubmit, diaryItem }) => {
     });
   };
 
+  const textRef = useRef();
+  const handleResizeHeight = useCallback(() => {
+    textRef.current.style.height = 'auto';
+    textRef.current.style.height = textRef.current.scrollHeight + 'px';
+  }, []);
+
   return (
     <div className="Editor">
       <section className="date_section">
@@ -112,9 +96,11 @@ const Editor = ({ onSubmit, diaryItem }) => {
       <section className="content_section">
         <h4>오늘의 일기</h4>
         <textarea
+          ref={textRef}
           placeholder="오늘 하루는 어땠나요?"
           name="content"
           onChange={onChangeInput}
+          onInput={handleResizeHeight}
           value={input.content}
         />
       </section>

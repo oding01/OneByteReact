@@ -9,27 +9,6 @@ import Button from './components/Button';
 import Header from './components/Header';
 import Edit from './pages/Edit';
 
-const mockData = [
-  {
-    id: 1,
-    createdDate: new Date('2024-06-20').getTime(),
-    emotionId: 1,
-    content: '1번 일기 내용',
-  },
-  {
-    id: 2,
-    createdDate: new Date('2024-06-18').getTime(),
-    emotionId: 2,
-    content: '2번 일기 내용',
-  },
-  {
-    id: 3,
-    createdDate: new Date('2024-05-07').getTime(),
-    emotionId: 3,
-    content: '3번 일기 내용',
-  },
-];
-
 function reducer(state, action) {
   switch (action.type) {
     case 'CREATE':
@@ -49,7 +28,7 @@ export const DiaryStateContext = createContext();
 export const DiaryDispatchContext = createContext();
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, mockData);
+  const [data, dispatch] = useReducer(reducer, []);
   const idRef = useRef(6);
 
   const onCreate = (createdDate, emotionId, content) => {

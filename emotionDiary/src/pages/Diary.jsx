@@ -1,6 +1,4 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
-import { DiaryStateContext } from '../App';
 import { getStringDate } from './../util/get-string-date';
 import useDiary from './../hooks/useDiary';
 import Header from '../components/Header';
@@ -12,9 +10,14 @@ const Diary = () => {
   const [params, setParams] = useSearchParams();
 
   const id = params.get('id');
-
-  const data = useContext(DiaryStateContext);
   const diaryItem = useDiary(id);
+
+  if (!diaryItem) {
+    return <div>데이터 로딩중...!</div>;
+  }
+  const { createdDate, emotionId, content } = diaryItem;
+
+  const title = getStringDate(new Date(createdDate));
 
   const goEditPage = () => {
     nav(`/edit?id=${id}`);
@@ -24,7 +27,7 @@ const Diary = () => {
     <div>
       <div>
         <Header
-          title={` 기록`}
+          title={`${title} 기록`}
           leftChild={
             <Button
               text={'< 뒤로 가기'}
@@ -37,7 +40,7 @@ const Diary = () => {
         />
       </div>
       <div>
-        <Viewer data={diaryItem} />
+        <Viewer emotionId={emotionId} content={content} />
       </div>
     </div>
   );
